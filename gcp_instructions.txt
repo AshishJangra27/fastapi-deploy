@@ -1,0 +1,18 @@
+1. Enable Cloud Run & Container Registry on GCP
+
+2. Authenticate:
+   gcloud auth login
+   gcloud config set project <your-project-id>
+
+3. Build Docker Image:
+   docker build -t streamlit-test-app .
+
+4. Tag and Push to GCR:
+   docker tag streamlit-test-app gcr.io/<your-project-id>/streamlit-test-app
+   docker push gcr.io/<your-project-id>/streamlit-test-app
+
+5. Deploy to Cloud Run:
+   gcloud run deploy streamlit-test-app \
+       --image gcr.io/<your-project-id>/streamlit-test-app \
+       --platform managed --region us-central1 \
+       --allow-unauthenticated
